@@ -3,10 +3,11 @@ from Adafruit_IO import MQTTClient
 import time
 import random
 from simple_ai import *
+from uat import *
 
 AIO_FEED_IDs = ["nutnhan1", "nutnhan2"]
 AIO_USERNAME = "hoanghao2208"
-AIO_KEY = "aio_Dztx83W12nIsQqoigqVCQVSXbCeN"
+AIO_KEY = "aio_Gqaj68YWoIfsFDY4dXmKoSamBAql"
 
 def connected(client):
     print("Ket noi thanh cong ...")
@@ -37,26 +38,26 @@ ai_result = ""
 prev_result = ""
 
 while True:
-    counter = counter - 1
-    if counter <= 0:
-        counter = 10
-        #todo
-        # print("Random data is publising...")
-        if sensor_type == 0:
-            print("Temperature data is publising...")
-            temp = random.randint(5, 40)
-            client.publish("cambien1", temp)
-            sensor_type = 1
-        elif sensor_type == 1:
-            print("Humidity data is publising...")
-            humi = random.randint(50, 70)
-            client.publish("cambien2", humi)
-            sensor_type = 2
-        elif sensor_type == 2:
-            print("Light data is publising...")
-            light = random.randint(100, 500)
-            client.publish("cambien3", light)
-            sensor_type = 0
+    # counter = counter - 1
+    # if counter <= 0:
+    #     counter = 10
+    #     #todo
+    #     # print("Random data is publising...")
+    #     if sensor_type == 0:
+    #         print("Temperature data is publising...")
+    #         temp = random.randint(5, 40)
+    #         client.publish("cambien1", temp)
+    #         sensor_type = 1
+    #     elif sensor_type == 1:
+    #         print("Humidity data is publising...")
+    #         humi = random.randint(50, 70)
+    #         client.publish("cambien2", humi)
+    #         sensor_type = 2
+    #     elif sensor_type == 2:
+    #         print("Light data is publising...")
+    #         light = random.randint(100, 500)
+    #         client.publish("cambien3", light)
+    #         sensor_type = 0
             
     couter_ai = couter_ai - 1
     if couter_ai <= 0:
@@ -67,4 +68,5 @@ while True:
         if prev_result != ai_result:
             client.publish("ai", ai_result)
         
+    readSerial(client)
     time.sleep(1)
